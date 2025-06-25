@@ -1,9 +1,9 @@
-const { join } = require('path');
+const {join} = require('path');
 
 const config = require('config');
 const knex = require('knex');
 
-const { getLogger } = require('../core/logging');
+const {getLogger} = require('../core/logging');
 
 const NODE_ENV = config.get('env');
 
@@ -19,117 +19,117 @@ const DATABASE_PASSWORD = config.get('database.password');
 let knexInstance;
 
 async function initializeData() {
-  const logger = getLogger();
-  logger.info('Initializing connection to the database');
+    const logger = getLogger();
+    logger.info('Initializing connection to the database');
 
-const seedsDirectory = isDevelopment ? join('src', 'data', 'seeds','dev') : join('src', 'data', 'seeds','prod');
+    const seedsDirectory = isDevelopment ? join('src', 'data', 'seeds', 'dev') : join('src', 'data', 'seeds', 'prod');
 
-  const knexOptions = {
-    client: DATABASE_CLIENT,
-    connection: {
-      host: DATABASE_HOST,
-      port: DATABASE_PORT,
-      user: DATABASE_USERNAME,
-      password: DATABASE_PASSWORD,
-      insecureAuth: isDevelopment,
-    },
-    debug: isDevelopment,
+    const knexOptions = {
+        client: DATABASE_CLIENT,
+        connection: {
+            host: DATABASE_HOST,
+            port: DATABASE_PORT,
+            user: DATABASE_USERNAME,
+            password: DATABASE_PASSWORD,
+            insecureAuth: isDevelopment,
+        },
+        debug: isDevelopment,
 
-    migrations: {
-      tableName: 'knex_meta',
-      directory: join('src', 'data', 'migrations'),
-    },
+        migrations: {
+            tableName: 'knex_meta',
+            directory: join('src', 'data', 'migrations'),
+        },
 
-    seeds: {
-      directory: seedsDirectory,
-    },
-  };
+        seeds: {
+            directory: seedsDirectory,
+        },
+    };
 
-  knexInstance = knex(knexOptions);
-
-  // Check the connection, create the database and then reconnect
-  try {
-    await knexInstance.raw('SELECT 1+1 AS result');
-    await knexInstance.raw(`CREATE DATABASE IF NOT EXISTS ${DATABASE_NAME}`);
-
-    // We need to update the Knex configuration and reconnect to use the created database by default
-    // USE ... would not work because a pool of connections is used
-    await knexInstance.destroy();
-
-    knexOptions.connection.database = DATABASE_NAME;
     knexInstance = knex(knexOptions);
-    await knexInstance.raw('SELECT 1+1 AS result');
-  } catch (error) {
-    logger.error(error.message, { error });
-    throw new Error('Could not initialize the data layer');
-  }
 
-  // Run migrations
-  try {
-    await knexInstance.migrate.latest();
-  } catch (error) {
-    logger.error('Error while migrating the database', {
-      error,
-    });
-
-    // No point in starting the server when migrations failed
-    throw new Error('Migrations failed, check the logs');
-  }
-  
-  //SEEDS
-  if (isDevelopment) {
+    // Check the connection, create the database and then reconnect
     try {
-      await knexInstance.seed.run();
-      logger.info('Database seeded for development');
+        await knexInstance.raw('SELECT 1+1 AS result');
+        await knexInstance.raw(`CREATE DATABASE IF NOT EXISTS ${DATABASE_NAME}`);
+
+        // We need to update the Knex configuration and reconnect to use the created database by default
+        // USE ... would not work because a pool of connections is used
+        await knexInstance.destroy();
+
+        knexOptions.connection.database = DATABASE_NAME;
+        knexInstance = knex(knexOptions);
+        await knexInstance.raw('SELECT 1+1 AS result');
     } catch (error) {
-      logger.error('Error while seeding database', {
-        error,
-      });
+        logger.error(error.message, {error});
+        throw new Error('Could not initialize the data layer');
     }
-  } else {
+
+    // Run migrations
     try {
-      await knexInstance.seed.run();
-      logger.info('Database seeded for production');
+        await knexInstance.migrate.latest();
     } catch (error) {
-      logger.error('Error while seeding database', {
-        error,
-      });
+        logger.error('Error while migrating the database', {
+            error,
+        });
+
+        // No point in starting the server when migrations failed
+        throw new Error('Migrations failed, check the logs');
     }
-  }
 
-  logger.info('Succesfully connected to the database');
+    //SEEDS
+    if (isDevelopment) {
+        try {
+            await knexInstance.seed.run();
+            logger.info('Database seeded for development');
+        } catch (error) {
+            logger.error('Error while seeding database', {
+                error,
+            });
+        }
+    } else {
+        try {
+            await knexInstance.seed.run();
+            logger.info('Database seeded for production');
+        } catch (error) {
+            logger.error('Error while seeding database', {
+                error,
+            });
+        }
+    }
 
-  return knexInstance;
+    logger.info('Succesfully connected to the database');
+
+    return knexInstance;
 }
 
 function getKnex() {
-  if (!knexInstance)
-    throw new Error(
-      'Please initialize the data layer before getting the Knex instance',
-    );
-  return knexInstance;
+    if (!knexInstance)
+        throw new Error(
+            'Please initialize the data layer before getting the Knex instance',
+        );
+    return knexInstance;
 }
 
 async function shutdownData() {
-  const logger = getLogger();
-  logger.info('Shutting down the database connection');
-  await knexInstance.destroy();
-  knexInstance = null;
-  logger.info('Database connection closed');
+    const logger = getLogger();
+    logger.info('Shutting down the database connection');
+    await knexInstance.destroy();
+    knexInstance = null;
+    logger.info('Database connection closed');
 }
 
 const tables = Object.freeze({
-  user: 'users',
-  instrument: 'instruments',
-  tuning: 'tunings',
-  instrument_tuning: 'instruments_tunings',
-  note: 'notes',
-  tuning_note: 'tunings_notes',
+    user: 'users',
+    instrument: 'instruments',
+    tuning: 'tunings',
+    instrument_tuning: 'instruments_tunings',
+    note: 'notes',
+    tuning_note: 'tunings_notes',
 });
 
 module.exports = {
-  tables,
-  getKnex,
-  initializeData,
-  shutdownData,
+    tables,
+    getKnex,
+    initializeData,
+    shutdownData,
 };

@@ -13,16 +13,16 @@ const installSpotifyRouter = require('./spotify');
  * @param {Koa} app - The Koa application.
  */
 module.exports = (app) => {
-  const router = new Router({
-    prefix: '/api',
-  });
+    const router = new Router({
+        prefix: '/api',
+    });
 
-  installUserRoutes(router);
-  installInstrumentRouter(router);
-  installNoteRouter(router);
-  installTuningRouter(router);
-  installHealthRouter(router);
-  installSpotifyRouter(router);
+    installUserRoutes(router);
+    installInstrumentRouter(router);
+    installNoteRouter(router);
+    installTuningRouter(router);
+    installHealthRouter(router);
+    installSpotifyRouter(router);
 
-  app.use(router.routes()).use(router.allowedMethods());
+    app.use(router.routes()).use(router.allowedMethods());
 };

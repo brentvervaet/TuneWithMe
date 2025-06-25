@@ -1,53 +1,53 @@
 const supertest = require('supertest');
- 
-const createServer = require('../src/createServer'); 
-const { getKnex } = require('../src/data'); 
+
+const createServer = require('../src/createServer');
+const {getKnex} = require('../src/data');
 
 const loginAdmin = async (supertest) => {
-  const response = await supertest.post('/api/users/login').send({
-    email: 'admin.user@hogent.be',
-    password: '12345678',
-  });
+    const response = await supertest.post('/api/users/login').send({
+        email: 'admin.user@hogent.be',
+        password: '12345678',
+    });
 
-  if (response.statusCode !== 200) {
-    throw new Error(response.body.message || 'Unknown error occured');
-  }
+    if (response.statusCode !== 200) {
+        throw new Error(response.body.message || 'Unknown error occured');
+    }
 
-  return `Bearer ${response.body.token}`;
+    return `Bearer ${response.body.token}`;
 };
 
 const login = async (supertest) => {
-  const response = await supertest.post('/api/users/login').send({
-    email: 'test.user@hogent.be',
-    password: '12345678',
-  });
+    const response = await supertest.post('/api/users/login').send({
+        email: 'test.user@hogent.be',
+        password: '12345678',
+    });
 
-  if (response.statusCode !== 200) {
-    throw new Error(response.body.message || 'Unknown error occured');
-  }
+    if (response.statusCode !== 200) {
+        throw new Error(response.body.message || 'Unknown error occured');
+    }
 
-  return `Bearer ${response.body.token}`;
+    return `Bearer ${response.body.token}`;
 };
 
 const withServer = (setter) => {
-  let server;
+    let server;
 
-  beforeAll(async () => {
-    server = await createServer();
+    beforeAll(async () => {
+        server = await createServer();
 
-    setter({
-      knex: getKnex(),
-      supertest: supertest(server.getApp().callback()),
+        setter({
+            knex: getKnex(),
+            supertest: supertest(server.getApp().callback()),
+        });
     });
-  });
 
-  afterAll(async () => {
-    await server.stop();
-  });
+    afterAll(async () => {
+        await server.stop();
+    });
 };
 
 module.exports = {
-  login,
-  loginAdmin,
-  withServer,
+    login,
+    loginAdmin,
+    withServer,
 };
