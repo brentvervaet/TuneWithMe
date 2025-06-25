@@ -11,7 +11,6 @@
 Ik verwacht dat volgende software reeds geïnstalleerd is:
 
 - [NodeJS](https://nodejs.org)
-- [Yarn](https://yarnpkg.com)
 - [Pnpm](https://pnpm.io)
 - [MySQL Community Server](https://dev.mysql.com/downloads/mysql/)
 
