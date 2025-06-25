@@ -21,7 +21,7 @@
     "@fontsource/roboto": "^5.1.0",
     "@mui/icons-material": "^6.1.10",
     "@mui/material": "^6.1.10",
-    "axios": "^1.7.9",
+    "axios": "1.8.2",
     "leaflet": "^1.9.4",
     "pitchy": "^4.1.0",
     "react": "^19.0.0",
