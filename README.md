@@ -14,14 +14,14 @@ Ik verwacht dat volgende software reeds geïnstalleerd is:
 
 1. cd backend
 2. Pnpm i
-2. Pnpm create-env
-3. Pnpm start OF pnpm dev
+3. Pnpm create-env 
+4. Pnpm start OF pnpm dev
 
 ### Testen
 
 1. cd backend
 2. pnpm create-env
-2. pnpm test
+3. pnpm test
 
 ## Front-end
 
@@ -29,14 +29,14 @@ Ik verwacht dat volgende software reeds geïnstalleerd is:
 
 1. cd frontend
 2. pnpm create-env (.env aanmaken)
-2. pnpm i (install dependecies)
-3. pnpm dev
+3. pnpm i (install dependecies)
+4. pnpm dev
 
 ### Testen
 
 1. cd frontend
 2. pnpm create-env (.env aanmaken)
-2. pnpm i (install dependecies)
-3. pnpm test
+3. pnpm i (install dependecies)
+4. pnpm test
 
 
