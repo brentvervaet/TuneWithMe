@@ -1,0 +1,29 @@
+{"items" : [
+  {
+    "id": 1,
+    "name": "Guitar",
+    "type": "String",
+    "description":
+          "A six-stringed instrument that is popular in a variety of music genres known for its versatility and rich sound."
+  },
+  {
+    "id": 2,
+    "name": "Bass",
+    "type": "String",
+    "description": "A four-stringed instrument that provides the low-end sound and rhythm in a band or ensemble."
+  },
+  {
+    "id": 3,
+    "name": "Ukulele",
+    "type": "String",
+    "description": "A small, four-stringed instrument that is popular in Hawaiian music and known for its bright, cheerful sound."
+  },
+  {
+    "id": 4,
+    "name": "Violin",
+    "type":"String",
+    "description": "A four-stringed instrument known for its high-pitched sound and prominent role in classical music, orchestras, and various other music genres."
+  }
+]
+}
+
