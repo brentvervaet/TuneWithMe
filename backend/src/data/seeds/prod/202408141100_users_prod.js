@@ -7,7 +7,7 @@ module.exports = {
         // Deletes ALL existing entries
         await knex(tables.user).delete();
 
-        const hashedPassword = await hashPassword(config.get("adminPassword"));
+        const hashedPassword = await hashPassword(config.get("auth.adminPassword"));
 
 
         // Inserts seed entries
