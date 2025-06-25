@@ -15,5 +15,6 @@ module.exports = {
         jwt: {
             secret: "AUTH_JWT_SECRET",
         },
+        adminPasword: "ADMIN_PASSWORD",
     },
 };
