@@ -1,7 +1,7 @@
 {
   "name": "tune-with-me",
   "private": true,
-  "version": "3.1.0",
+  "version": "4.0.0",
   "type": "module",
   "description": "A tunning application",
   "repository": "https://github.com/HOGENT-frontendweb/frontendweb-2425-BrentVervaet.git",

@@ -1,6 +1,6 @@
 {
   "name": "2324-webservices-brentvervaet",
-  "version": "3.0.1",
+  "version": "4.0.0",
   "description": "backend application for TuneWithMe application",
   "main": "src/index.js",
   "repository": "git@github.com:BrentVervaet/webservices_2324.git",
