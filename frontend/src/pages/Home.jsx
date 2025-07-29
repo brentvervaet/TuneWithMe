@@ -1,11 +1,11 @@
+import MusicNoteIcon from '@mui/icons-material/MusicNote';
+import { Box, Button, Container, Divider, Stack, Typography } from '@mui/material';
 import { useCallback } from 'react';
-import { Container, Typography, Box, Divider, Button, Stack } from '@mui/material';
 import { NavLink } from 'react-router-dom';
-import { useAuth } from '../contexts/auth';
 import useSWR from 'swr';
 import { getTrackofTheDay } from '../api';
 import AsyncData from '../components/AsyncData';
-import MusicNoteIcon from '@mui/icons-material/MusicNote';
+import { useAuth } from '../contexts/auth';
 const Home = () => {
   const fetchTrack = useCallback(async (url) => {
     const storedTrack = JSON.parse(localStorage.getItem('trackOfTheDay'));

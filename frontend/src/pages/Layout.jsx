@@ -1,10 +1,10 @@
 // src/pages/Layout.jsx
-import { useState ,useEffect} from 'react';
+import { CssBaseline } from '@mui/material';
+import { grey, red, teal } from '@mui/material/colors';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { useEffect, useState } from 'react';
 import { Outlet, ScrollRestoration } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { CssBaseline } from '@mui/material';
-import { teal ,grey,red} from '@mui/material/colors';
 
 const lightTheme = createTheme({
   palette: {

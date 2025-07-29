@@ -1,22 +1,22 @@
+import AddIcon from '@mui/icons-material/Add';
+import SearchIcon from '@mui/icons-material/Search';
 import {
-  TextField,
-  Container,
-  Typography,
-  IconButton,
   Box,
+  Container,
   Divider,
-} from "@mui/material";
-import Grid2 from "@mui/material/Unstable_Grid2";
-import SearchIcon from "@mui/icons-material/Search";
-import AddIcon from "@mui/icons-material/Add";
-import Notification from "../../components/Notification";
-import { getAll, deleteById } from "../../api/index";
-import InstrumentsTable from "../../components/instruments/InstrumentsTable";
-import AsyncData from "../../components/AsyncData";
-import { useState, useMemo, useCallback } from "react";
-import useSWR from "swr";
-import useSWRMutation from "swr/mutation";
-import { Link } from "react-router-dom";
+  Grid,
+  IconButton,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { useCallback, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
+import useSWR from 'swr';
+import useSWRMutation from 'swr/mutation';
+import { deleteById, getAll } from '../../api/index';
+import AsyncData from '../../components/AsyncData';
+import InstrumentsTable from '../../components/instruments/InstrumentsTable';
+import Notification from '../../components/Notification';
 
 export default function InstrumentsList() {
   // API call
@@ -24,17 +24,17 @@ export default function InstrumentsList() {
     data: instruments = [],
     isLoading,
     error,
-  } = useSWR("instruments", getAll);
+  } = useSWR('instruments', getAll);
 
   const { trigger: deleteInstrument, error: deleteError } = useSWRMutation(
-    "instruments",
-    deleteById
+    'instruments',
+    deleteById,
   );
 
-  const [text, setText] = useState("");
-  const [search, setSearch] = useState("");
+  const [text, setText] = useState('');
+  const [search, setSearch] = useState('');
   const [showAlert, setShowAlert] = useState(false);
-  const [alertMessage, setAlertMessage] = useState("");
+  const [alertMessage, setAlertMessage] = useState('');
 
   // Search
   const filteredInstruments = useMemo(
@@ -42,21 +42,21 @@ export default function InstrumentsList() {
       instruments.filter((instrument) => {
         return instrument.name.toLowerCase().includes(search.toLowerCase());
       }),
-    [search, instruments]
+    [search, instruments],
   );
 
   const handleDeleteInstrument = useCallback(
     async (id) => {
       await deleteInstrument(id);
       setShowAlert(true);
-      setAlertMessage("Instrument deleted successfully");
+      setAlertMessage('Instrument deleted successfully');
     },
-    [deleteInstrument]
+    [deleteInstrument],
   );
 
   // Handle alert close
   const handleCloseAlert = (event, reason) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
     setShowAlert(false);
@@ -67,7 +67,7 @@ export default function InstrumentsList() {
       <Box
         mt={3}
         display="flex"
-        flexDirection={{ xs: "column", sm: "row" }}
+        flexDirection={{ xs: 'column', sm: 'row' }}
         alignItems="center"
       >
         <Typography variant="h3" gutterBottom>
@@ -84,14 +84,14 @@ export default function InstrumentsList() {
 
       <Divider />
 
-      <Grid2
+      <Grid
         container
         spacing={1}
         mt={2}
         justifyContent="center"
         alignItems="center"
       >
-        <Grid2 xs={8} sm={4}>
+        <Grid xs={8} sm={4}>
           <TextField
             type="search"
             id="search"
@@ -102,8 +102,8 @@ export default function InstrumentsList() {
             fullWidth
             data-cy="search_input"
           />
-        </Grid2>
-        <Grid2 xs={4} sm={2}>
+        </Grid>
+        <Grid xs={4} sm={2}>
           <IconButton
             color="secondary"
             onClick={() => setSearch(text)}
@@ -112,8 +112,8 @@ export default function InstrumentsList() {
           >
             <SearchIcon fontSize="medium" />
           </IconButton>
-        </Grid2>
-      </Grid2>
+        </Grid>
+      </Grid>
 
       <Box mt={3}>
         <AsyncData loading={isLoading} error={error || deleteError}>

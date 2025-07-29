@@ -1,12 +1,12 @@
-import { Container, Typography, Box, Divider } from '@mui/material';
+import { Box, Container, Divider, Typography } from '@mui/material';
 
 import { useParams } from 'react-router-dom';
 import useSWR from 'swr';
 import useSWRMutation from 'swr/mutation';
 
-import {save, getById} from '../../api/index';
-import InstrumentForm from '../../components/instruments/InstrumentForm';
+import { getById, save } from '../../api/index';
 import AsyncData from '../../components/AsyncData';
+import InstrumentForm from '../../components/instruments/InstrumentForm';
 
 const AddOrEditInstrument = () => {
 

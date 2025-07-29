@@ -1,11 +1,11 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { Box, Button, Container, Paper, Stack, Typography } from '@mui/material';
+import { useCallback, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import useSWR from 'swr';
 import useSWRMutation from 'swr/mutation';
-import { useCallback,useState } from 'react';
+import { deleteById, getById, getTuningsByInstrumentId } from '../../api/index';
 import AsyncData from '../../components/AsyncData';
-import { getById , deleteById,getTuningsByInstrumentId} from '../../api/index';
 import InstrumentTuningsTable from '../../components/instruments/InstrumentTuningsTable';
-import { Container, Typography, Paper, Box, Button, Stack } from '@mui/material';
 import Notification from '../../components/Notification';
 import { useAuth } from '../../contexts/auth';
 

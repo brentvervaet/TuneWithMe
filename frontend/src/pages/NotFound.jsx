@@ -1,6 +1,6 @@
-import { Container, Typography, Box, Button} from '@mui/material';
-import { useLocation ,useNavigate} from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
+import { Box, Button, Container, Typography } from '@mui/material';
+import { useLocation, useNavigate } from 'react-router-dom';
 const NotFound = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
